@@ -15,8 +15,8 @@ public class QuBit : MonoBehaviour, IBit
 
     public int Value()
     {
-        private probability0 = (state.Z + 1) / 2;
-        private probability1 = (1 - state.Z) / 2;
+        float probability0 = (state.z + 1) / 2;
+        float probability1 = (1 - state.z) / 2;
 
         return probability0 > probability1 ? 0 : 1;
     }
