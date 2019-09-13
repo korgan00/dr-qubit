@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Qubit : MonoBehaviour, IBit
+public class QuBit : MonoBehaviour, IBit
 {
     private Vector3 state;
     private List<string> appliedQuGates;
