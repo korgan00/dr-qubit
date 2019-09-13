@@ -1,11 +1,22 @@
-fileFormatVersion: 2
-guid: bf3d14089fa0f45a9ab12d4887a4e11d
-MonoImporter:
-  externalObjects: {}
-  serializedVersion: 2
-  defaultReferences: []
-  executionOrder: 0
-  icon: {instanceID: 0}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class QuBitMovement : MonoBehaviour {
+
+    public Vector2 position;
+
+    public void MoveVertical(float amount) {
+        position.y -= amount;
+        transform.position = transform.position - (Vector3.up * amount);
+    }
+
+    public void MoveHorizontal(float amount) {
+        position.x += amount;
+        transform.position = transform.position + (Vector3.right * amount);
+    }
+
+    public void StopMoving() {
+        Destroy(this);
+    }
+}

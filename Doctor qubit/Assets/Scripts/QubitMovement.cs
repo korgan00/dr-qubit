@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class QubitMovement : MonoBehaviour {
+public class QuBitMovement : MonoBehaviour {
 
     public Vector2 position;
 

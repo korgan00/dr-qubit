@@ -18,12 +18,12 @@ public class GameState : MonoBehaviour {
     [SerializeField]
     public float stepsPerBlock = 1.0f;
     [SerializeField]
-    private QubitMovement _instanciableQubit;
+    private QuBitMovement _instanciableQubit;
     [SerializeField]
     private Transform _spawnPoint;
 
-    private QubitMovement _currentQubit;
-    private GameObject[,] _board;
+    private QuBitMovement _currentQubit;
+    private IBit[,] _board;
     private float _currentMovementColdDown;
     private float movementColdDown {
         get { return 1f / stepsPerBlock; }
@@ -34,7 +34,7 @@ public class GameState : MonoBehaviour {
     private void Start() {
         _currentMovementColdDown = movementColdDown;
         SpawnNextQubit();
-        _board = new GameObject[8,16];
+        _board = new IBit[8,16];
     }
 
 
@@ -57,7 +57,7 @@ public class GameState : MonoBehaviour {
             if (boardPosition.y < 0 || _board[boardPosition.x, boardPosition.y] != null) {
                 _currentQubit.MoveVertical(-1f / stepsPerBlock);
                 Vector2Int newBoardPosition = new Vector2Int(Mathf.FloorToInt(_currentQubit.position.x), Mathf.FloorToInt(_currentQubit.position.y));
-                _board[newBoardPosition.x, newBoardPosition.y] = _currentQubit.gameObject;
+                _board[newBoardPosition.x, newBoardPosition.y] = _currentQubit.GetComponent<QuBit>();
                 _currentQubit.StopMoving();
                 EvaluateGameState();
                 if (!finished) {
