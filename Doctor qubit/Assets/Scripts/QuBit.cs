@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Qubit : MonoBehaviour
+public class Qubit : MonoBehaviour, IBit
 {
     private Vector3 state;
     private List<string> appliedQuGates;
@@ -13,7 +13,7 @@ public class Qubit : MonoBehaviour
         appliedQuGates.Add(quGate.code);
     }
 
-    public int Measure()
+    public int Value()
     {
         return 0;
     }
