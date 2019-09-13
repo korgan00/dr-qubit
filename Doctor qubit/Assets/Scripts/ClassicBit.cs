@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClassicBit : MonoBehaviour {
+public class ClassicBit : IBit {
 
     [SerializeField]
     private bool _value;
 
-    public int Measure() => _value ? 1 : 0;
+    public int Value() => _value ? 1 : 0;
 }
