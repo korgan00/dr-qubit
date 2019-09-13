@@ -49,9 +49,6 @@ public class GameState : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.D)) {
             MoveRight();
         }
-        //if (Input.GetKeyDown)
-
-        
 
         while (_currentMovementColdDown < 0) {
             _currentMovementColdDown += movementColdDown;
