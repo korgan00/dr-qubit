@@ -42,7 +42,6 @@ public class GameState : MonoBehaviour {
     private void Update() {
         _currentMovementColdDown -= Time.deltaTime * speed;
 
-        
         if (Input.GetKeyDown(KeyCode.A)) {
             MoveLeft();
         }
