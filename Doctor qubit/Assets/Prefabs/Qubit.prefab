@@ -318,7 +318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe22fe050cd9d451e9b62362cb9a4f5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  state: {x: 0, y: 0, z: 0}
+  state: {x: 0, y: 0, z: 1}
   collapse0: {fileID: 6181459136231738033}
   collapse1: {fileID: 4904729936849596188}
 --- !u!114 &1818505271844648798

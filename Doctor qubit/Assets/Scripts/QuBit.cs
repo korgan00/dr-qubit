@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class QuBit : MonoBehaviour, IBit {
-    public Vector3 state;
-    private List<string> appliedQuGates;
+    public Vector3 state = Vector3.forward;
+    private List<string> appliedQuGates = new List<string>();
     public bool collapsed => _value != -1;
     private int _value;
 
@@ -13,8 +13,6 @@ public class QuBit : MonoBehaviour, IBit {
     public AudioSource collapse1;
 
     private void Start() {
-        state = Vector3.forward;
-        appliedQuGates = new List<string>();
         _value = -1;
     }
 

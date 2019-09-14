@@ -1651,6 +1651,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Qubit
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: fcccfd856ed11437cb6744a38f8e03e9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: fcccfd856ed11437cb6744a38f8e03e9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2508,7 +2513,7 @@ MonoBehaviour:
   _hButton: {fileID: 1347878653}
   winCanvas: {fileID: 1195997099}
   loseCanvas: {fileID: 603557246}
-  music: {fileID: 0}
+  music: {fileID: 1843448027}
   down: {fileID: 1804720078}
   move: {fileID: 2120786862}
   clearSound: {fileID: 1644072409}

@@ -61,6 +61,7 @@ public class GameState : MonoBehaviour {
     private bool finished;
 
     private void Start() {
+        _gatesList = GetComponent<QuGatesList>();
         _currentMovementColdDown = movementColdDown;
         SpawnNextQubit();
         _board = new IBit[8,16];
@@ -78,74 +79,81 @@ public class GameState : MonoBehaviour {
             }
         }
 
-        _gatesList = GetComponent<QuGatesList>();
 
         winCanvas.gameObject.SetActive(false);
     }
 
     private void Update() {
-        _currentMovementColdDown -= Time.deltaTime * speed;
+        try {
+            _currentMovementColdDown -= Time.deltaTime * speed;
 
-        if (Input.GetKeyDown(KeyCode.A)) {
-            move.Play();
-            MoveLeft();
-        }
-        if (Input.GetKeyDown(KeyCode.D)) {
-            move.Play();
-            MoveRight();
-        }
-        if (Input.GetKey(KeyCode.S)) {
-            down.Play();
-            _currentMovementColdDown = 0;
-        }
+            if (Input.GetKeyDown(KeyCode.A)) {
+                move.Play();
+                MoveLeft();
+            }
+            if (Input.GetKeyDown(KeyCode.D)) {
+                move.Play();
+                MoveRight();
+            }
+            if (Input.GetKey(KeyCode.S)) {
+                down.Play();
+                _currentMovementColdDown = 0;
+            }
 
-        if (Input.GetKeyDown(KeyCode.X)) {
-            _currentQubit.GetComponent<QuBit>().ApplyGate(_gatesList.quGatesList[0]);
-            _xButton.color = Color.white;
-            _zButton.color = Color.gray;
-            _hButton.color = Color.gray;
-            gate.Play();
-        }
-        if (Input.GetKeyDown(KeyCode.Z)) {
-            _currentQubit.GetComponent<QuBit>().ApplyGate(_gatesList.quGatesList[1]);
-            _xButton.color = Color.gray;
-            _zButton.color = Color.white;
-            _hButton.color = Color.gray;
-            gate.Play();
-        }
-        if (Input.GetKeyDown(KeyCode.H)) {
-            _currentQubit.GetComponent<QuBit>().ApplyGate(_gatesList.quGatesList[2]);
-            _xButton.color = Color.gray;
-            _zButton.color = Color.gray;
-            _hButton.color = Color.white;
-            gate.Play();
-        }
+            if (Input.GetKeyDown(KeyCode.X)) {
+                _currentQubit.GetComponent<QuBit>().ApplyGate(_gatesList.quGatesList[0]);
+                _xButton.color = Color.white;
+                _zButton.color = Color.gray;
+                _hButton.color = Color.gray;
+                gate.Play();
+            }
+            if (Input.GetKeyDown(KeyCode.Z)) {
+                _currentQubit.GetComponent<QuBit>().ApplyGate(_gatesList.quGatesList[1]);
+                _xButton.color = Color.gray;
+                _zButton.color = Color.white;
+                _hButton.color = Color.gray;
+                gate.Play();
+            }
+            if (Input.GetKeyDown(KeyCode.H)) {
+                _currentQubit.GetComponent<QuBit>().ApplyGate(_gatesList.quGatesList[2]);
+                _xButton.color = Color.gray;
+                _zButton.color = Color.gray;
+                _hButton.color = Color.white;
+                gate.Play();
+            }
 
-        while (_currentMovementColdDown <= 0) {
-            _currentMovementColdDown += movementColdDown;
-            _currentQubit.MoveVertical(1f / stepsPerBlock);
-            Vector2Int boardPosition = new Vector2Int(Mathf.FloorToInt(_currentQubit.position.x), Mathf.FloorToInt(_currentQubit.position.y));
+            while (_currentMovementColdDown <= 0) {
+                _currentMovementColdDown += movementColdDown;
+                _currentQubit.MoveVertical(1f / stepsPerBlock);
+                Vector2Int boardPosition = new Vector2Int(Mathf.FloorToInt(_currentQubit.position.x), Mathf.FloorToInt(_currentQubit.position.y));
 
-            if (boardPosition.y < 0 || _board[boardPosition.x, boardPosition.y] != null) {
-                _currentQubit.MoveVertical(-1f / stepsPerBlock);
+                if (boardPosition.y < 0 || _board[boardPosition.x, boardPosition.y] != null) {
+                    _currentQubit.MoveVertical(-1f / stepsPerBlock);
 
-                Vector2Int newBoardPosition = new Vector2Int(Mathf.FloorToInt(_currentQubit.position.x), Mathf.FloorToInt(_currentQubit.position.y));
-                try {
-                    _board[newBoardPosition.x, newBoardPosition.y] = _currentQubit.GetComponent<QuBit>();
-                } catch  (IndexOutOfRangeException ex) {
-                    loseSound?.Play();
-                    loseCanvas.gameObject.SetActive(true);
-                    enabled = false;
-                    music.Stop();
-                }
+                    Vector2Int newBoardPosition = new Vector2Int(Mathf.FloorToInt(_currentQubit.position.x), Mathf.FloorToInt(_currentQubit.position.y));
+                    try {
+                        _board[newBoardPosition.x, newBoardPosition.y] = _currentQubit.GetComponent<QuBit>();
+                    } catch  (IndexOutOfRangeException ex) {
+                        loseSound?.Play();
+                        loseCanvas.gameObject.SetActive(true);
+                        enabled = false;
+                        music.Stop();
+                    }
 
-                _currentQubit.StopMoving();
-                EvaluateGameState();
-                if (!finished) {
-                    SpawnNextQubit();
+                    _currentQubit.StopMoving();
+                    EvaluateGameState();
+                    if (!finished) {
+                        SpawnNextQubit();
+                    }
                 }
             }
+        } catch (IndexOutOfRangeException ex) {
+            loseSound?.Play();
+            loseCanvas.gameObject.SetActive(true);
+            enabled = false;
+            music.Stop();
         }
+
 
     }
 
@@ -165,6 +173,22 @@ public class GameState : MonoBehaviour {
         _currentQubit = Instantiate(_instanciableQubit, _spawnPoint.position, _spawnPoint.rotation);
         _currentQubit.position.y = _boardSize.y;
         _currentQubit.MoveHorizontal(_boardSize.x / 2);
+
+        QuBit q = _currentQubit.GetComponent<QuBit>();
+
+        float rnd1 = UnityEngine.Random.value;
+        float rnd2 = UnityEngine.Random.value;
+        float rnd3 = UnityEngine.Random.value;
+
+        Debug.Log($"{rnd1}   {rnd2}  {rnd3}");
+        if (rnd1 > 0.5) {
+            q.ApplyGate(_gatesList.quGatesList[0]);
+        } else if (rnd2 > 0.5f) {
+            q.ApplyGate(_gatesList.quGatesList[2]);
+            if (rnd3 > 0.5f) {
+                q.ApplyGate(_gatesList.quGatesList[1]);
+            }
+        }
     }
     
     private void EvaluateGameState() {
