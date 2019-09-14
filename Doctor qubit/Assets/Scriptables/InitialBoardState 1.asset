@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d7c992c1b98a42d093c9ef42f0b03b5, type: 3}
   m_Name: InitialBoardState 1
   m_EditorClassIdentifier: 
-  numClassicBits: 30
+  numClassicBits: 2
   maxHeightBits: 10

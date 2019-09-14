@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -41,7 +42,17 @@ public class GameState : MonoBehaviour {
     private float _currentMovementColdDown;
     private QuGatesList _gatesList;
 
+    public Canvas winCanvas;
+    public Canvas loseCanvas;
 
+    [Header("Sounds")]
+    public AudioSource music;
+    public AudioSource down;
+    public AudioSource move;
+    public AudioSource clearSound;
+    public AudioSource winSound;
+    public AudioSource loseSound;
+    public AudioSource gate;
 
     private float movementColdDown {
         get { return 1f / stepsPerBlock; }
@@ -68,18 +79,23 @@ public class GameState : MonoBehaviour {
         }
 
         _gatesList = GetComponent<QuGatesList>();
+
+        winCanvas.gameObject.SetActive(false);
     }
 
     private void Update() {
         _currentMovementColdDown -= Time.deltaTime * speed;
 
         if (Input.GetKeyDown(KeyCode.A)) {
+            move.Play();
             MoveLeft();
         }
         if (Input.GetKeyDown(KeyCode.D)) {
+            move.Play();
             MoveRight();
         }
         if (Input.GetKey(KeyCode.S)) {
+            down.Play();
             _currentMovementColdDown = 0;
         }
 
@@ -88,18 +104,21 @@ public class GameState : MonoBehaviour {
             _xButton.color = Color.white;
             _zButton.color = Color.gray;
             _hButton.color = Color.gray;
+            gate.Play();
         }
         if (Input.GetKeyDown(KeyCode.Z)) {
             _currentQubit.GetComponent<QuBit>().ApplyGate(_gatesList.quGatesList[1]);
             _xButton.color = Color.gray;
             _zButton.color = Color.white;
             _hButton.color = Color.gray;
+            gate.Play();
         }
         if (Input.GetKeyDown(KeyCode.H)) {
             _currentQubit.GetComponent<QuBit>().ApplyGate(_gatesList.quGatesList[2]);
             _xButton.color = Color.gray;
             _zButton.color = Color.gray;
             _hButton.color = Color.white;
+            gate.Play();
         }
 
         while (_currentMovementColdDown <= 0) {
@@ -111,7 +130,14 @@ public class GameState : MonoBehaviour {
                 _currentQubit.MoveVertical(-1f / stepsPerBlock);
 
                 Vector2Int newBoardPosition = new Vector2Int(Mathf.FloorToInt(_currentQubit.position.x), Mathf.FloorToInt(_currentQubit.position.y));
-                _board[newBoardPosition.x, newBoardPosition.y] = _currentQubit.GetComponent<QuBit>();
+                try {
+                    _board[newBoardPosition.x, newBoardPosition.y] = _currentQubit.GetComponent<QuBit>();
+                } catch  (IndexOutOfRangeException ex) {
+                    loseSound?.Play();
+                    loseCanvas.gameObject.SetActive(true);
+                    enabled = false;
+                    music.Stop();
+                }
 
                 _currentQubit.StopMoving();
                 EvaluateGameState();
@@ -120,6 +146,7 @@ public class GameState : MonoBehaviour {
                 }
             }
         }
+
     }
 
     public void MoveRight() {
@@ -141,8 +168,49 @@ public class GameState : MonoBehaviour {
     }
     
     private void EvaluateGameState() {
-        VerticalDestruction();
-        HorizontalDestruction();
+        bool destruction = VerticalDestruction();
+        destruction |= HorizontalDestruction();
+
+        if (destruction) {
+            clearSound.Play();
+        }
+
+        EvaluateWinCondition();
+        EvaluateLooseCondition();
+    }
+
+    private void EvaluateLooseCondition() {
+        bool lose = true;
+        for (int i = 0; i < _boardSize.x; i++) {
+            if (_board[i, 3] == null) {
+                lose = false;
+            }
+        }
+
+        if (lose) {
+            loseSound.Play();
+            loseCanvas.gameObject.SetActive(true);
+            enabled = false;
+            music.Stop();
+        }
+    }
+
+    private void EvaluateWinCondition() {
+        bool win = true;
+        for (int i = 0; i < _boardSize.x; i++) {
+            for (int j = 0; j < _boardSize.y; j++) {
+                IBit currBit = _board[i, j];
+                if (currBit is ClassicBit) {
+                    win = false;
+                }
+            }
+        }
+
+        if (win) {
+            winSound.Play();
+            winCanvas.gameObject.SetActive(true);
+            enabled = false;
+        }
     }
 
     private bool VerticalDestruction() {
