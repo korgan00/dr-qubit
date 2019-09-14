@@ -16,6 +16,10 @@ public class QuBitVectorRotator : MonoBehaviour {
     }
 
     void Update() {
-        axis.transform.rotation = startRotation * Quaternion.LookRotation(quBit.state, Vector3.forward);
+        if (System.Math.Abs(quBit.state.x - -1f) < 0.0001) {
+            axis.transform.rotation = startRotation * Quaternion.Euler(-90, 0, 0);
+        } else {
+            axis.transform.rotation = startRotation * Quaternion.LookRotation(quBit.state, Vector3.forward);
+        }
     }
 }

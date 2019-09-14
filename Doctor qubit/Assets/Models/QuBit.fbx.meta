@@ -7,6 +7,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: 17 - Default
+    second: {fileID: 2100000, guid: 85d7c340e538148e1ad03fa4c8be5f96, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: QBit_Color
     second: {fileID: 2100000, guid: 85d7c340e538148e1ad03fa4c8be5f96, type: 2}
   - first:

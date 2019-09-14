@@ -5,10 +5,13 @@ using UnityEngine;
 public class QuBit : MonoBehaviour, IBit {
     public Vector3 state;
     private List<string> appliedQuGates;
+    public bool collapsed => _value != -1;
+    private int _value;
 
     private void Start() {
         state = Vector3.forward;
         appliedQuGates = new List<string>();
+        _value = -1;
     }
 
     public void ApplyGate(QuGate quGate) {
@@ -18,9 +21,17 @@ public class QuBit : MonoBehaviour, IBit {
     }
 
     public int Value() {
-        float probability0 = (state.z + 1) / 2;
-        float probability1 = (1 - state.z) / 2;
+        if (_value == -1) {
+            float probability0 = (state.z + 1) / 2;
+            //float probability1 = (1 - state.z) / 2;
 
-        return probability0 > probability1 ? 0 : 1;
+            float rnd = Random.value;
+
+            Debug.Log($"Collapsed: rnd({rnd}) prob({probability0})");
+
+            _value = probability0 > rnd ? 0 : 1;
+        }
+
+        return _value;
     }
 }
