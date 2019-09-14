@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: fcccfd856ed11437cb6744a38f8e03e9
+guid: e3509e02569524ee8b67f139d6278fda
 ModelImporter:
   serializedVersion: 26
   internalIDToNameTable: []
@@ -7,13 +7,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: QBit_Color
-    second: {fileID: 2100000, guid: 85d7c340e538148e1ad03fa4c8be5f96, type: 2}
+      name: Background
+    second: {fileID: 2100000, guid: df6d249743acf44e1b957415945df2f0, type: 2}
   - first:
-      type: UnityEngine:Material
+      type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
-      name: QBit_Sphere
-    second: {fileID: 2100000, guid: b45ed35b7b5544da5baad9d5fdd9e41f, type: 2}
+      name: Background
+    second: {fileID: 2800000, guid: 6f00877b4a4044cd18fc3fb267ac27f8, type: 3}
   materials:
     importMaterials: 1
     materialName: 0

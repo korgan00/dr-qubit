@@ -1,19 +1,47 @@
 fileFormatVersion: 2
-guid: fcccfd856ed11437cb6744a38f8e03e9
+guid: 22a85f009df8e450ca35d07383a07c2d
 ModelImporter:
   serializedVersion: 26
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      74: 1827226128182048838
+    second: Take 001
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: QBit_Color
-    second: {fileID: 2100000, guid: 85d7c340e538148e1ad03fa4c8be5f96, type: 2}
+      name: Virus_01_Eyes
+    second: {fileID: 2100000, guid: d415ad9f0da30459e9f76796f5017fed, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: QBit_Sphere
-    second: {fileID: 2100000, guid: b45ed35b7b5544da5baad9d5fdd9e41f, type: 2}
+      name: Virus_01_Mouth
+    second: {fileID: 2100000, guid: 1a102c102b37c4eb28da454490286687, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Virus_01_Number
+    second: {fileID: 2100000, guid: 25d930f2e60024ca798d6d5f56f9219b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Virus_02_Dientes
+    second: {fileID: 2100000, guid: 1d2e45ab5c2594ac2b0cecdc9f3abd33, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Virus_02_Head
+    second: {fileID: 2100000, guid: 44917dbe8651945309482d35d5776e1a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Virus_02_Horn
+    second: {fileID: 2100000, guid: 3e1f596bcd0504d44a8bcdd9d2ee1f4a, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Eye
+    second: {fileID: 2800000, guid: 21178b91794ab486b846ed35e1621924, type: 3}
   materials:
     importMaterials: 1
     materialName: 0
@@ -97,7 +125,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

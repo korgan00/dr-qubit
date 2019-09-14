@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class QuBit : MonoBehaviour, IBit {
-    private Vector3 state;
+    public Vector3 state;
     private List<string> appliedQuGates;
+
+    private void Start() {
+        state = Vector3.forward;
+        appliedQuGates = new List<string>();
+    }
 
     public void ApplyGate(QuGate quGate) {
         state = quGate.modification * state;
         appliedQuGates.Add(quGate.code);
+        Debug.Log(state);
     }
 
     public int Value() {
