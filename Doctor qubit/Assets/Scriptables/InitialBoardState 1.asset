@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: InitialBoardState 1
   m_EditorClassIdentifier: 
   numClassicBits: 30
-  maxHeightBits: 5
+  maxHeightBits: 10

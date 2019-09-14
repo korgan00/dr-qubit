@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 public class GameState : MonoBehaviour {
 
@@ -28,11 +28,20 @@ public class GameState : MonoBehaviour {
     [SerializeField]
     public InitialBoardState _initialStateGenerator;
 
+    [SerializeField]
+    public Image _xButton;
+    [SerializeField]
+    public Image _zButton;
+    [SerializeField]
+    public Image _hButton;
+
     private QuBitMovement _currentQubit;
     private IBit[,] _board;
     private ClassicBit[,] _initialBoard;
     private float _currentMovementColdDown;
     private QuGatesList _gatesList;
+
+
 
     private float movementColdDown {
         get { return 1f / stepsPerBlock; }
@@ -74,15 +83,23 @@ public class GameState : MonoBehaviour {
             _currentMovementColdDown = 0;
         }
 
-
         if (Input.GetKeyDown(KeyCode.X)) {
             _currentQubit.GetComponent<QuBit>().ApplyGate(_gatesList.quGatesList[0]);
+            _xButton.color = Color.white;
+            _zButton.color = Color.gray;
+            _hButton.color = Color.gray;
         }
         if (Input.GetKeyDown(KeyCode.Z)) {
             _currentQubit.GetComponent<QuBit>().ApplyGate(_gatesList.quGatesList[1]);
+            _xButton.color = Color.gray;
+            _zButton.color = Color.white;
+            _hButton.color = Color.gray;
         }
         if (Input.GetKeyDown(KeyCode.H)) {
             _currentQubit.GetComponent<QuBit>().ApplyGate(_gatesList.quGatesList[2]);
+            _xButton.color = Color.gray;
+            _zButton.color = Color.gray;
+            _hButton.color = Color.white;
         }
 
         while (_currentMovementColdDown <= 0) {
